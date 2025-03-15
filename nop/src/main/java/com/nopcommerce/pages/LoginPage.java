@@ -2,7 +2,6 @@ package com.nopcommerce.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -15,6 +14,7 @@ public class LoginPage {
     By emailField = By.id("Email");
     By passwordField = By.id("Password");
     By loginButton = By.xpath("//button[contains(text(),'Log in')]");
+    By myAccountLink = By.linkText("My account");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -36,8 +36,12 @@ public class LoginPage {
     public void clickLoginButton() {
         driver.findElement(loginButton).click();
     }
+
+    public boolean isLoggedIn() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(myAccountLink)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
-
-// Similarly, implement other page classes like ElectronicsPage, CellPhonesPage, CartPage, CheckoutPage, etc.
-
-
